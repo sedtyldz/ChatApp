@@ -8,12 +8,13 @@
 import SwiftUI
 import PhotosUI
 
+
 class Profile: ObservableObject {
     @Published var selectedItem: PhotosPickerItem? {
         didSet { Task { try? await loadImage() } }
     }
     
-    @Published var profileImage: Image?
+    @Published var profileImage: UIImage?
     
     func loadImage() async throws {
         guard let item = selectedItem else { return }
@@ -21,8 +22,9 @@ class Profile: ObservableObject {
         guard let imageData = try await item.loadTransferable(type: Data.self) else { return }
         // Data'dan UIImage oluşturun
         guard let uiImage = UIImage(data: imageData) else { return }
-        // UIImage'dan SwiftUI Image oluşturun
-        self.profileImage = Image(uiImage: uiImage)
+        // UIImage'ı ayarlayın
+        self.profileImage = uiImage
     }
 }
+
 

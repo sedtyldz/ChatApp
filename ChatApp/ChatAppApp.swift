@@ -11,11 +11,19 @@ import Firebase
 @main
 struct ChatAppApp: App {
     init() {
-             FirebaseApp.configure()
-         }
+        FirebaseApp.configure()
+    }
+    
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            MainPage()
+            if isLoggedIn {
+                MainPage()
+            } else {
+                LoginPage()
+            }
         }
     }
 }
+

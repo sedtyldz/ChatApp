@@ -7,12 +7,15 @@
 
 import SwiftUI
 import FirebaseAuth
+import Firebase
 
 struct LoginPage: View {
     @State var email: String = ""
     @State var password: String = ""
-    @State var isLoggedIn: Bool = false
     @State var errorMessage: String = ""
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    @AppStorage("Email") var Email:String = ""
+    
     
     var body: some View {
         NavigationView {
@@ -93,6 +96,7 @@ struct LoginPage: View {
             .frame(maxWidth:.infinity,maxHeight: .infinity)
             .background(.cyan)
         }
+        .preferredColorScheme(.light)
         .navigationBarBackButtonHidden(true)
     }
     
@@ -102,9 +106,14 @@ struct LoginPage: View {
                 errorMessage = "Error, please check your login information."
             } else {
                 isLoggedIn = true
+                Email = email
             }
         }
     }
+    
+   
+    
+    
 }
 
 #Preview {
